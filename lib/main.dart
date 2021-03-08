@@ -18,6 +18,7 @@ class _MyAppState extends State<MyApp> {
   String seconds = "00";
   int detik = 0;
   List<String> lap_history = [];
+  //karena butuh waktu sebelumnya saja
   List<String> before_history = [];
   int nomor = 0;
   Timer timer;
@@ -39,17 +40,20 @@ class _MyAppState extends State<MyApp> {
       }
 
       temp = (this.nomor).toString().padLeft(2, '0') +
+          "      " +
           before_history[ambil] +
-          "     " +
+          "      " +
           this.hours +
           ":" +
           this.minutes +
           ":" +
           this.seconds;
+
       this.lap_history.add(temp);
     });
   }
 
+//fungsi di cek apakah bolean dalam keadaan tombol play diklik jika ya jalankan
   void convert_detik() {
     setState(() {
       if (mulai == true) {
@@ -62,6 +66,7 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+//langsung jalankan fungsi rekrusif ssaat di start aplikasinya
   @override
   void initState() {
     super.initState();
@@ -129,23 +134,14 @@ class _MyAppState extends State<MyApp> {
               SizedBox(width: 10.0),
               Expanded(
                 child: ListView(
-                  children: <Widget>[
-                    Container(
-                      padding: const EdgeInsets.all(8.0),
-                      margin: const EdgeInsets.only(top: 5.0),
-                      child: Text("01   +00:00:91    00:05:53",
-                          style:
-                              TextStyle(fontSize: 25, color: Colors.black54)),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(8.0),
-                      margin: const EdgeInsets.only(top: 5.0),
-                      child: Text("02   +00:05:65    00:05:34",
-                          style:
-                              TextStyle(fontSize: 25, color: Colors.black54)),
-                    ),
-                  ],
-                ),
+                    children: lap_history.map((String value) {
+                  Container(
+                    padding: const EdgeInsets.all(8.0),
+                    margin: const EdgeInsets.only(top: 5.0),
+                    child: Text(value,
+                        style: TextStyle(fontSize: 25, color: Colors.black54)),
+                  );
+                }).toList()),
               ),
             ],
           ),
