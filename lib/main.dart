@@ -17,6 +17,7 @@ class _MyAppState extends State<MyApp> {
   String minutes = "00";
   String seconds = "00";
   int detik = 0;
+  int detik_terakir;
   List<String> lap_history = [];
   //karena butuh waktu sebelumnya saja
   List<String> before_history = [];
@@ -26,22 +27,31 @@ class _MyAppState extends State<MyApp> {
   bool mulai = false;
   String text_button = "Play";
 
-  void lap() {
-    setState(() {
-      String temp;
-      bool apakah_pertama;
-      int ambil = nomor;
-      before_history[nomor] =
-          this.hours + ":" + this.minutes + ":" + this.seconds;
-      if (apakah_pertama == true) {
-        ambil = nomor;
-      } else {
-        ambil = nomor - 1;
-      }
+  void cari_before() {
+    String temp;
+    int temp2;
+    if (nomor == 0) {
+      temp = "+ " + this.hours + ":" + this.minutes + ":" + this.seconds;
+    } else {
+      temp2 = detik - detik_terakir;
+      temp = "+ " +
+          ((temp2 / (60 * 60)) % 60).floor().toString().padLeft(2, '0') +
+          ":" +
+          ((temp2 / 60) % 60).floor().toString().padLeft(2, '0') +
+          ":" +
+          (temp2 % 60).floor().toString().padLeft(2, '0');
+    }
+    this.detik_terakir = detik;
+    this.before_history.add(temp);
+  }
 
+  void lap() {
+    String temp;
+    setState(() {
+      cari_before();
       temp = (this.nomor).toString().padLeft(2, '0') +
           "      " +
-          before_history[ambil] +
+          before_history[nomor] +
           "      " +
           this.hours +
           ":" +
@@ -50,12 +60,13 @@ class _MyAppState extends State<MyApp> {
           this.seconds;
 
       this.lap_history.add(temp);
+      this.nomor++;
     });
   }
 
-//fungsi di cek apakah bolean dalam keadaan tombol play diklik jika ya jalankan
   void convert_detik() {
     setState(() {
+//fungsi di cek apakah bolean dalam keadaan tombol play diklik jika ya jalankan
       if (mulai == true) {
         this.detik++;
         this.hours =
@@ -135,7 +146,7 @@ class _MyAppState extends State<MyApp> {
               Expanded(
                 child: ListView(
                     children: lap_history.map((String value) {
-                  Container(
+                  return Container(
                     padding: const EdgeInsets.all(8.0),
                     margin: const EdgeInsets.only(top: 5.0),
                     child: Text(value,
