@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,9 +13,71 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  String hours = "00";
+  String minutes = "00";
+  String seconds = "00";
+  int detik = 0;
+  List<String> lap_history = [];
+  List<String> before_history = [];
+  int nomor = 0;
+  Timer timer;
+
   bool mulai = false;
+  String text_button = "Play";
+
+  void lap() {
+    setState(() {
+      String temp;
+      bool apakah_pertama;
+      int ambil = nomor;
+      before_history[nomor] =
+          this.hours + ":" + this.minutes + ":" + this.seconds;
+      if (apakah_pertama == true) {
+        ambil = nomor;
+      } else {
+        ambil = nomor - 1;
+      }
+
+      temp = (this.nomor).toString().padLeft(2, '0') +
+          before_history[ambil] +
+          "     " +
+          this.hours +
+          ":" +
+          this.minutes +
+          ":" +
+          this.seconds;
+      this.lap_history.add(temp);
+    });
+  }
+
+  void convert_detik() {
+    setState(() {
+      if (mulai == true) {
+        this.detik++;
+        this.hours =
+            ((detik / (60 * 60)) % 60).floor().toString().padLeft(2, '0');
+        this.minutes = ((detik / 60) % 60).floor().toString().padLeft(2, '0');
+        this.seconds = (detik % 60).floor().toString().padLeft(2, '0');
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    timer = Timer.periodic(Duration(seconds: 1), (Timer t) => convert_detik());
+  }
+
   void klik_mulai() {
-    this.mulai = true;
+    setState(() {
+      if (mulai == false) {
+        this.mulai = true;
+        this.text_button = "Stop";
+      } else {
+        this.mulai = false;
+        this.text_button = "Play";
+      }
+    });
   }
 
   @override
@@ -34,7 +98,7 @@ class _MyAppState extends State<MyApp> {
             children: <Widget>[
               Container(
                 margin: const EdgeInsets.only(top: 250.0),
-                child: Text("00:00:00",
+                child: Text("$hours:$minutes:$seconds",
                     style: TextStyle(fontSize: 55, color: Colors.black54)),
               ),
               Row(
@@ -42,15 +106,15 @@ class _MyAppState extends State<MyApp> {
                 children: <Widget>[
                   RaisedButton(
                     onPressed: () => klik_mulai(),
-                    child: const Text('Play', style: TextStyle(fontSize: 20)),
+                    child: Text('$text_button', style: TextStyle(fontSize: 20)),
                     color: Colors.blue,
                     textColor: Colors.white,
                     elevation: 5,
                   ),
                   SizedBox(width: 30.0),
                   RaisedButton(
-                    onPressed: () => klik_mulai(),
-                    child: const Text('Lap', style: TextStyle(fontSize: 20)),
+                    onPressed: () => lap(),
+                    child: Text('Lap', style: TextStyle(fontSize: 20)),
                     color: Colors.blue,
                     textColor: Colors.white,
                     elevation: 5,
