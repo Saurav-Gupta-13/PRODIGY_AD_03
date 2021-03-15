@@ -1,6 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:stopwatch/textAtas.dart';
+import 'package:stopwatch/textLapAtas.dart';
+
+import 'listViewBawah.dart';
 
 void main() {
   runApp(MyApp());
@@ -112,11 +116,7 @@ class _MyAppState extends State<MyApp> {
         body: Center(
           child: Column(
             children: <Widget>[
-              Container(
-                margin: const EdgeInsets.only(top: 250.0),
-                child: Text("$hours:$minutes:$seconds",
-                    style: TextStyle(fontSize: 55, color: Colors.black54)),
-              ),
+              TextAtas(hours: hours, minutes: minutes, seconds: seconds),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -137,23 +137,9 @@ class _MyAppState extends State<MyApp> {
                   ),
                 ],
               ),
-              Container(
-                margin: const EdgeInsets.only(top: 20.0),
-                child: Text("Historic lap",
-                    style: TextStyle(fontSize: 40, color: Colors.black54)),
-              ),
+              TextLapAtas(),
               SizedBox(width: 10.0),
-              Expanded(
-                child: ListView(
-                    children: lap_history.map((String value) {
-                  return Container(
-                    padding: const EdgeInsets.all(8.0),
-                    margin: const EdgeInsets.only(top: 5.0),
-                    child: Text(value,
-                        style: TextStyle(fontSize: 25, color: Colors.black54)),
-                  );
-                }).toList()),
-              ),
+              ListViewBawah(lap_history: lap_history),
             ],
           ),
         ),
