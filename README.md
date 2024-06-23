@@ -12,6 +12,4 @@
 
 ## Stopwatch App
 
-This Project is my first open test project about stopwatch with history App,
-
-You can leave a comment or ask for contributor if you want to help me grow. Thanks 
+"Track time effortlessly with the Stopwatch Flutter app, featuring customizable dark and light themes for optimal visibility and style."
