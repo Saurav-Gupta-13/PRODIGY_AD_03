@@ -34,13 +34,14 @@ class TimerPageState extends State<TimerPage> {
   @override
   void initState() {
     super.initState();
-    // Start the timer immediately when the page loads
-    dependencies.stopwatch.start();
+    // Comment out the line to start the timer immediately
+    // dependencies.stopwatch.start();
   }
 
   void leftButtonPressed() {
     setState(() {
       dependencies.stopwatch.reset();
+      isRunning = false; // Reset running state
     });
   }
 
