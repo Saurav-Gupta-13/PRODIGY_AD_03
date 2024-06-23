@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class TextLapAtas extends StatelessWidget {
   const TextLapAtas({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class TextAtas extends StatelessWidget {
   const TextAtas({
-    Key key,
-    @required this.hours,
-    @required this.minutes,
-    @required this.seconds,
+    Key? key,
+    required this.hours,
+    required this.minutes,
+    required this.seconds,
   }) : super(key: key);
 
   final String hours;
