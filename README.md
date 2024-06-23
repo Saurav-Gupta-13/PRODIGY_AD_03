@@ -1,13 +1,13 @@
 # ScreenShoot Stopwatch
 
 ## First shows up page
-<img src="/images/1.jpeg" title="Screenshot dari HP 1"/>
+<img src="/images/stop1.jpg" title="Screenshot dari HP 1"/>
 
 ## After pressed lap
-<img src="/images/2.jpeg" title="Screenshot dari HP 2"/>
+<img src="/images/stop2.jpg" title="Screenshot dari HP 2"/>
 
 ## When Lap history overflowed and become scrollable
-<img src="/images/3.jpeg" title="Screenshot dari HP 3"/>
+<img src="/images/stop3.jpg" title="Screenshot dari HP 3"/>
 
 
 ## Stopwatch App
